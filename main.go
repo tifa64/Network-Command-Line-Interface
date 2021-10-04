@@ -38,6 +38,24 @@ func main(){
 				}
 				return nil
 			},
+		},
+		{
+			Name:"ip",
+			Usage: "Looks Up the IP addresses for a particular host",
+			Flags:myFlags,
+			Action: func(c *cli.Context) error {
+				ip, err := net.LookupIP(c.String("host"))
+				if err !=nil {
+					fmt.Println(err)
+					return err
+				}
+				for i:=0; i<len(ip); i++ {
+					fmt.Println(ip[i])
+
+				}
+				return nil
+			},
+
 		}
 	}
 	err := app.Run(os.Args)
