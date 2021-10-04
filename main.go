@@ -72,7 +72,25 @@ func main(){
 				return nil
 			},
 
-		}
+		},
+		{
+			Name:"mx",
+			Usage: "Look Up for mx records for a particular Host",
+			Flags: myFlags,
+			Action: func(c *cli.Context) error {
+				mx, err := net.LookupMX(c.String("host"))
+
+				if err != nil {
+					fmt.Println(err)
+					return err
+				}
+				for i:=0; i<len(mx); i++ {
+					fmt.Println(mx[i].Host, mx[i].Pref)
+				}
+				return nil
+
+			},
+		},
 	}
 	err := app.Run(os.Args)
 	if err != nil {
